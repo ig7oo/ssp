@@ -1,53 +1,31 @@
 <script setup>
  import { ref } from 'vue';
  import knappRad from './components/knappRad.vue';
+ import resultatRad from './components/resultatRad.vue';
 
  const score = ref ({ spelare: 0, dator: 0});
- const resultat = ref('Välj sten, sax eller påse!');
+ const resultat = ref({})
  const knappar = ref (['Sten', 'Sax', 'Påse', 'Lizard', 'Spock']);
 
 
 
-
-
-function hittaVinnare() {
-    let buttons = document.getElementsByClassName('alternativ')
-    for (let b of buttons) {
-        if (b.classList.contains('spelarval')) {
-            var spelarval = b.textContent
-        }
-        if (b.classList.contains('datorval')) {
-            var datorval = b.textContent
-        }
+function hittaVinnare(valdaKnappar) {
+  console.log("valdaKnappar", valdaKnappar)
+    let spelare = knappar.value.indexOf(valdaKnappar.spelare)
+    let dator = knappar.value.indexOf(valdaKnappar.dator)
+    resultat.value = {spelare: spelare, dator: dator}
     }
 
-    if (spelarval == datorval) {
-        resultat.value = 'Oavgjort!'
-    } else if (
-        spelarval == 'Sten' && datorval == 'Sax'|| 
-        spelarval == 'Sax' && datorval == 'Påse'|| 
-        spelarval == 'Påse' && datorval == 'Sten'
-      ) {
-        resultat.value = 'Du vann!'
-        score.value.spelare++
-    } else {
-        resultat.value = 'Du förlorade!'
-        score.value.dator++
-    }
-}
-function reset() {
+    function reset() {
     score.value.spelare = 0
     score.value.dator = 0
-    resultat.value = 'Välj sten, sax eller påse!'
+    resultat.value = 'Låt spelet börja!'
     let buttons = document.getElementsByClassName('alternativ')
     for (let b of buttons) {
         b.classList.remove('spelarval')
         b.classList.remove('datorval')
     }
 }
-
-
-
 </script>
 
 <template>
@@ -57,9 +35,8 @@ function reset() {
 
   <main>
     <knappRad :knappar="knappar" @valda-knappar="hittaVinnare"/>
-    <div class="resultat">
-      <p id="resultat">{{resultat}}</p>
-    </div>
+    <resultatRad :valdaKnappar="resultat"/>
+    
     <div class="score">
       <p>
         <span id="spelare">{{ score.spelare }}</span> -

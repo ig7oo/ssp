@@ -2,15 +2,15 @@
  import { ref } from 'vue';
  import knappRad from './components/knappRad.vue';
  import resultatRad from './components/resultatRad.vue';
+ import poangRad from './components/poangRad.vue';
 
  const score = ref ({ spelare: 0, dator: 0});
  const resultat = ref({})
  const knappar = ref (['Sten', 'Sax', 'Påse', 'Lizard', 'Spock']);
-
-
+ const vinnare = ref('');
 
 function hittaVinnare(valdaKnappar) {
-  console.log("valdaKnappar", valdaKnappar)
+  vinnare.value=''
     let spelare = knappar.value.indexOf(valdaKnappar.spelare)
     let dator = knappar.value.indexOf(valdaKnappar.dator)
     resultat.value = {spelare: spelare, dator: dator}
@@ -26,6 +26,10 @@ function hittaVinnare(valdaKnappar) {
         b.classList.remove('datorval')
     }
 }
+
+function raknaPoang(v) {
+  vinnare.value = v
+}
 </script>
 
 <template>
@@ -35,16 +39,10 @@ function hittaVinnare(valdaKnappar) {
 
   <main>
     <knappRad :knappar="knappar" @valda-knappar="hittaVinnare"/>
-    <resultatRad :valdaKnappar="resultat"/>
+    <resultatRad :valdaKnappar="resultat" @vinnare="raknaPoang"/>
+    <poangRad :vinnare="vinnare"/>
     
-    <div class="score">
-      <p>
-        <span id="spelare">{{ score.spelare }}</span> -
-        <span id="dator">{{ score.dator }}</span>
-      </p>
-      <button id="nolla" @click="reset">Nollställ poängen</button>
-      
-    </div>
+    
   </main>
 </template>
 

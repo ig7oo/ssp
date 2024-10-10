@@ -1,7 +1,7 @@
 <script setup>
- import { ref } from 'vue';
+ import { watch } from 'vue';
 
- const props = defineProps(['knappar'])
+ const props = defineProps(['knappar', 'reset'])
  const emit = defineEmits(['valdaKnappar'])
 
  function spelarval(e) {
@@ -26,6 +26,17 @@
   }
   return props.knappar[val]
  }
+
+ watch(() => props.reset, () => {
+  if (props.reset) {
+    let buttons = document.getElementsByClassName('alternativ')
+    for (let b of buttons) {
+      b.classList.remove('spelarval')
+      b.classList.remove('datorval')
+      b.title=""
+    }
+  }
+ })
 
 </script>
 

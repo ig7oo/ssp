@@ -5,10 +5,10 @@
  import poangRad from './components/poangRad.vue';
 
  const resultat = ref({})
- const knappar = ref (['Sten', 'Sax', 'Påse', 'Lizard', 'Spock']);
+ const knappar = ref (['Sten', 'Sax', 'Påse']);
  const vinnare = ref('');
  const reset = ref(true)
-
+ const nyttVal = ref('')
 
 function hittaVinnare(valdaKnappar) {
   reset.value = false
@@ -18,28 +18,43 @@ function hittaVinnare(valdaKnappar) {
     resultat.value = {spelare: spelare, dator: dator}
     }
 
-
-
 function raknaPoang(v) {
   vinnare.value = v
 }
+
+function skapaVal() {
+  if (nyttVal.value.trim()) {
+    knappar.value.push(nyttVal.value)
+    nyttVal.value = ''
+  }
+}
+
+function undoVal() {
+  if (knappar.value.length > 3) {
+    knappar.value.pop()
+  }
+}
+
 </script>
 
 <template>
   <header>
     <h1>Sten, sax, påse!</h1>
-
   </header>
 
   <main>
+    <div class="nytt-val">
+      <input v-model="nyttVal" placeholder="Skriv nytt val" />
+      <br><br>
+      <button @click="skapaVal">Lägg till val</button><br><br>
+      <button @click="undoVal">Ångra senaste val</button>
+    </div>
     <knappRad :knappar="knappar" @valda-knappar="hittaVinnare" :reset="reset"/>
     <resultatRad :valdaKnappar="resultat" @vinnare="raknaPoang" :reset="reset"/>
     <poangRad :vinnare="vinnare" :reset="reset"/>
     <div class="score">
       <button id="nolla" @click="reset = true">Nollställ</button>
     </div>
-    
-    
   </main>
 </template>
 
@@ -85,5 +100,18 @@ function raknaPoang(v) {
     margin-top: 2em;
     padding: .3em .6em;
     font-size: .8em;
+   }
+
+   .nytt-val {
+    text-align: center;
+    margin-bottom: 1em;
+   }
+
+   input {
+    padding: .6em;
+    font-size: 1em;
+    margin-right: .5em;
+    border: 1px solid #cccc;
+    border-radius: 5px;
    }
 </style>

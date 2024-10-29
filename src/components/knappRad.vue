@@ -50,23 +50,29 @@
 
 <style scoped>
 button {
-    padding: .6em 1.2em;
-    font-size: 1.2em;
-    background-color:#f0f0f0;
-    border: 1px solid #cccc;
-    border-radius: 5px;
-    cursor: pointer;
-   }
-button.spelarval {
-    background-color: greenyellow;
-   }
-   button.datorval {
-    border: red solid 2px;
-   }
+  padding: .6em 1.2em;
+  font-size: 1.2em;
+  background-color:#ffffffc9;
+  border: 1px solid #000000cc;
+  border-radius: 5px;
+  cursor: pointer;
+  }
 
-   .knapprad {
-    display: flex;
-    justify-content: center;
-    gap: .6em;
-   }
-   </style>
+  button:hover {
+  background-color: #789af1ab;
+  }
+
+button.spelarval {
+  background-color: rgb(153, 255, 0);
+  }
+
+button.datorval {
+  border: red solid 2px;
+}
+
+.knapprad {
+  display: flex;
+  justify-content: center;
+  gap: .6em;
+  }
+</style>

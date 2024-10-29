@@ -3,7 +3,7 @@ import { ref, watch } from 'vue';
 
 
 const props = defineProps(['knappar', 'reset', 'vinnare'])
-const score = ref({ spelare: 0, dator: 0 });
+const score = ref({ spelare: 0, dator: 0});
 watch(props, () => {
     if (props.vinnare == 'spelare') {
         score.value.spelare++
@@ -26,9 +26,9 @@ watch(
 <template>
     <div class="score">
         <p>
-            <span id="spelare">
+            <span id="spelare" class="player">
                 {{ score.spelare }}
-            </span> - <span id="dator">
+            </span>:<span id="dator" class="computer">
                 {{ score.dator }}
             </span>
         </p>
@@ -36,4 +36,15 @@ watch(
 </template>
 
 <style scoped>
+.score {
+    font-size: 35px;
+    color: rgb(255, 255, 255);
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+.player {
+    color: #00ff00;
+}
+.computer {
+    color: #ff0000;
+}
 </style>

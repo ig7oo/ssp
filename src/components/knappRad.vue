@@ -1,9 +1,7 @@
 <script setup>
  import { watch } from 'vue';
 
- // Definierar props för knappar (spelets alternativ) och reset-funktion
  const props = defineProps(['knappar', 'reset'])
- // Definierar emit för att skicka spelarens och datorns val till förälder-komponenten
  const emit = defineEmits(['valdaKnappar'])
 
  // Funktion som hanterar spelarens val när en knapp klickas
@@ -52,9 +50,7 @@
 </script>
 
 <template>
-    <!-- Container för knapparna med flex-layout -->
     <div class="knapprad">
-        <!-- Renderar en knapp för varje alternativ i props.knappar -->
         <button v-for="knapp in props.knappar" class="alternativ" :key="knapp" @click="spelarval">
         {{ knapp }}
         </button>

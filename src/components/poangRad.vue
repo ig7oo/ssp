@@ -1,7 +1,6 @@
 <script setup>
 import { ref, watch } from 'vue';
 
-// Definierar props som komponenten tar emot: knappar, reset och vinnare
 const props = defineProps(['knappar', 'reset', 'vinnare'])
 
 

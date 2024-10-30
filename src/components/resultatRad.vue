@@ -56,11 +56,8 @@ watch(() => props.reset, () => {
 </script>
 
 <template>
-  <!-- Container för resultatvisning -->
   <div class="resultat-container">
-    <!-- Visar resultattext med dynamisk styling -->
-    <p :class="{ 'start-text': resultat === 'Låt spelet börja!', 'result-text': resultat !== 'Låt spelet börja!' }">{{ resultat }}</p>
-   
+    <p :class="{ 'start-text': resultat === 'Låt spelet börja!', 'result-text': resultat !== 'Låt spelet börja!' }">{{ resultat }}</p>   
     <!-- Visar resultatskatten om det finns en bildkälla -->
     <img v-if="imageSrc" :src="imageSrc" alt="Result Image" class="result-image" />
   </div>

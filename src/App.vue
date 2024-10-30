@@ -1,11 +1,9 @@
 <script setup>
- // Importera nödvändiga Vue-komponenter och funktioner
  import { ref } from 'vue';
  import knappRad from './components/knappRad.vue';
  import resultatRad from './components/resultatRad.vue';
  import poangRad from './components/poangRad.vue';
 
- // Definiera reaktiva variabler för spelets tillstånd
  const resultat = ref({})  // Lagrar spelarens och datorns val
  const knappar = ref (['Sten', 'Sax', 'Påse']);  // Lista med tillgängliga val
  const vinnare = ref('');  // Lagrar vem som vann omgången
@@ -44,8 +42,8 @@ function skapaVal() {
 
 // Funktion för att ta bort det senast tillagda valet
 function undoVal() {
-  if (knappar.value.length > 3) {  // Kontrollera att Sten, Sax och Påse inte kan tas bort
-    knappar.value.pop()
+  if (knappar.value.length > 3) {  // Kontrollera att Sten, Sax och Påse inte kan tas bort    
+    knappar.value.pop() // pop() tar bort och returnerar det sista elementet i en array
   } else {
     alert('Du kan inte ta bort Sten, Sax eller Påse!')
   }
@@ -59,14 +57,12 @@ function undoVal() {
   </header>
 
   <main>
-    <!-- Sektion för att lägga till och ta bort val -->
     <div class="nytt-val">
       <input v-model="nyttVal" placeholder="Skriv nytt val" />
       <br><br>
       <button id="flerval" @click="skapaVal">Lägg till val</button><br><br>
       <button id="raderaval" @click="undoVal">Ångra senaste val</button>
     </div>
-    <!-- Spelkomponenter -->
     <knappRad :knappar="knappar" @valda-knappar="hittaVinnare" :reset="reset"/>
     <resultatRad :valdaKnappar="resultat" @vinnare="raknaPoang" :reset="reset"/>
     <poangRad :vinnare="vinnare" :reset="reset"/>

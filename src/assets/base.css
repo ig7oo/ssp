@@ -38,7 +38,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: url('sspwp7.png') center center/cover fixed;
+    --color-background: url('sspwp2.png') center center/cover fixed;
     --color-background-soft: var(--vt-c-black-soft);
     --color-background-mute: var(--vt-c-black-mute);
 

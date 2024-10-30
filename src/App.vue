@@ -1,15 +1,18 @@
 <script setup>
+ // Importera nödvändiga Vue-komponenter och funktioner
  import { ref } from 'vue';
  import knappRad from './components/knappRad.vue';
  import resultatRad from './components/resultatRad.vue';
  import poangRad from './components/poangRad.vue';
 
- const resultat = ref({})
- const knappar = ref (['Sten', 'Sax', 'Påse']);
- const vinnare = ref('');
- const reset = ref(true)
- const nyttVal = ref('')
+ // Definiera reaktiva variabler för spelets tillstånd
+ const resultat = ref({})  // Lagrar spelarens och datorns val
+ const knappar = ref (['Sten', 'Sax', 'Påse']);  // Lista med tillgängliga val
+ const vinnare = ref('');  // Lagrar vem som vann omgången
+ const reset = ref(true)   // Kontrollerar om spelet ska återställas
+ const nyttVal = ref('')   // Lagrar användarens input för nya val
 
+// Funktion som hanterar val och bestämmer vinnare
 function hittaVinnare(valdaKnappar) {
   reset.value = false
   vinnare.value=''
@@ -18,15 +21,16 @@ function hittaVinnare(valdaKnappar) {
     resultat.value = {spelare: spelare, dator: dator}
     }
 
+// Funktion som uppdaterar vinnaren och poängställningen
 function raknaPoang(v) {
   vinnare.value = v
 }
 
 // Funktion för att lägga till nya val
 function skapaVal() {
-  if (nyttVal.value.trim()) {
-    if (nyttVal.value.length <= 20) {
-      if (!knappar.value.includes(nyttVal.value)) {
+  if (nyttVal.value.trim()) {  // Kontrollera att input inte är tomt
+    if (nyttVal.value.length <= 20) {  // Kontrollerar att längden inte överstiger 20 tecken
+      if (!knappar.value.includes(nyttVal.value)) {  // Kontrollera att valet inte redan finns
         knappar.value.push(nyttVal.value)
         nyttVal.value = ''
       } else {
@@ -37,9 +41,10 @@ function skapaVal() {
     }
   }
 }
-// Funktion för att ta bort senaste val
+
+// Funktion för att ta bort det senast tillagda valet
 function undoVal() {
-  if (knappar.value.length > 3) {
+  if (knappar.value.length > 3) {  // Kontrollera att Sten, Sax och Påse inte kan tas bort
     knappar.value.pop()
   } else {
     alert('Du kan inte ta bort Sten, Sax eller Påse!')
@@ -54,12 +59,14 @@ function undoVal() {
   </header>
 
   <main>
+    <!-- Sektion för att lägga till och ta bort val -->
     <div class="nytt-val">
       <input v-model="nyttVal" placeholder="Skriv nytt val" />
       <br><br>
       <button id="flerval" @click="skapaVal">Lägg till val</button><br><br>
       <button id="raderaval" @click="undoVal">Ångra senaste val</button>
     </div>
+    <!-- Spelkomponenter -->
     <knappRad :knappar="knappar" @valda-knappar="hittaVinnare" :reset="reset"/>
     <resultatRad :valdaKnappar="resultat" @vinnare="raknaPoang" :reset="reset"/>
     <poangRad :vinnare="vinnare" :reset="reset"/>
@@ -70,11 +77,13 @@ function undoVal() {
 </template>
 
 <style scoped>
+   /* Stilar för header och huvudrubrik */
    header {
         text-align: center;
         margin-bottom: 1.2em;
    }
 
+   /* Grundläggande knappstil */
    button {
     padding: .6em 1.2em;
     font-size: 1.2em;
@@ -84,6 +93,7 @@ function undoVal() {
     cursor: pointer;
    }
 
+   /* Hover-effekter för knappar */
    #raderaval:hover {
     background-color: #ff6b6b;
     transition: background-color 0.3s;
@@ -94,6 +104,7 @@ function undoVal() {
     transition: background-color 0.3s;
    }
 
+   /* Layout för knapprad */
    .knapprad {
     display: flex;
     justify-content: center;
@@ -103,6 +114,7 @@ function undoVal() {
     margin: 0 auto;
    }
 
+   /* Stilar för resultat och poängvisning */
    .resultat {
     font-size: 1.2em;
     text-align: center;
@@ -114,12 +126,15 @@ function undoVal() {
     text-align: center;
    }
    
+   /* Stilar för spelar- och datorval */
    button.spelarval {
     background-color: greenyellow;
    }
    button.datorval {
     border: rgb(255, 0, 0) solid 2px;
    }
+
+   /* Stil för nollställningsknapp */
    #nolla {
     margin-top: 2em;
     padding: .3em .6em;
@@ -131,6 +146,7 @@ function undoVal() {
     transition: background-color 0.3s;
    }
 
+   /* Stilar för input-sektion */
    .nytt-val {
     text-align: center;
     margin-bottom: 1em;
@@ -143,6 +159,8 @@ function undoVal() {
     border: 1px solid #000000;
     border-radius: 5px;
    }
+
+   /* Stil för huvudrubrik */
    h1 {
     font-size: 39px;
     margin-bottom: 1em;

@@ -58,7 +58,7 @@ function undoVal() {
 
   <main>
     <div class="nytt-val">
-      <input v-model="nyttVal" placeholder="Skriv nytt val" />
+      <input id="nyttValInput" name="nyttValInput" v-model="nyttVal" placeholder="Skriv nytt val" />
       <br><br>
       <button id="flerval" @click="skapaVal">Lägg till val</button><br><br>
       <button id="raderaval" @click="undoVal">Ångra senaste val</button>

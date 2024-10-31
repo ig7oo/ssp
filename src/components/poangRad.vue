@@ -16,7 +16,7 @@ watch(props, () => {
     }
 })
 
-// Övervakar reset-prop och nollställer poängen när reset är true
+// Övervakar reset-prop och nollställer poängen när reset = true
 watch(
   () => props.reset,
   () => {
@@ -29,7 +29,6 @@ watch(
 </script>
 
 <template>
-    <!-- Visar poängställningen i formatet Spelare:Dator -->
     <div class="score">
         <p>
             <span id="spelare" class="player">
@@ -49,12 +48,12 @@ watch(
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
-/* Grön färg för spelarens poäng */
+/* Spelarens poängfärg */
 .player {
     color: #00ff00;
 }
 
-/* Röd färg för datorns poäng */
+/* Datorns poängfärg */
 .computer {
     color: #ff0000;
 }
